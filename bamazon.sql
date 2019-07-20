@@ -10,10 +10,10 @@ CREATE TABLE products(
     price DECIMAL(10,2) NULL,
     stock_quantity INT(10) NULL,
     PRIMARY KEY(item_id)
-)
+);
 
 
-INSERT INTO products (product_name,department_name,pricestock_quantity)
+INSERT INTO products (product_name,department_name,price,stock_quantity)
 VALUES("Bed linen","House Utensils",6.99,20),
 ("Forks","House Utensils",4.99,20),
 ("Rimmel","Make Up",3.99,20),

@@ -83,7 +83,7 @@ function selectProduct() {
                         otherItem();
                     }
                     else {
-                        console.log("We can sell toy some of it")
+                        console.log("We have stock!")
                         //Input information that will run the function to update the DB
                         updateStock(res[i].stock_quantity, answer.quantity, res[i].item_id)
                         priceTopay(res[i].price)
