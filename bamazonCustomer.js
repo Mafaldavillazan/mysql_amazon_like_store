@@ -80,27 +80,29 @@ function selectProduct() {
                     //If the value is less than the stock quantity say insufficient quantity
                     if (res[i].stock_quantity < answer.quantity) {
                         console.log("Insuficient Quantity")
-                        displayProduct();
+                        otherItem();
                     }
                     else {
                         console.log("We can sell toy some of it")
                         //Input information that will run the function to update the DB
-                        updateStock(res[i].stock_quantity,answer.quantity, res[i].item_id)
+                        updateStock(res[i].stock_quantity, answer.quantity, res[i].item_id)
+                        priceTopay(res[i].price)
                     }
+                    console.log("-----------------")
                 }
+                
             });
         });
 }
 
 //Updating the data base with the new value
-function updateStock(resQuantity,answerQuantity, itemID) {
-    var updatedResult = answerQuantity - resQuantity
-    var query = connection.query(
+function updateStock(resQuantity, answerQuantity, itemID) {
+    var updatedResult = resQuantity - answerQuantity; 
+    connection.query(
         "UPDATE products SET ? WHERE ?",
         [
             {
-                stock_quantity : updatedResult
-            
+                stock_quantity: updatedResult
             },
             {
                 item_id: itemID
@@ -108,8 +110,60 @@ function updateStock(resQuantity,answerQuantity, itemID) {
         ],
         function (err, res) {
             if (err) throw err;
-            console.log(res + "Product updated!")
+            console.log("Product ready to purchase")
+
         }
     );
 
 }
+
+function priceTopay(price) {
+    console.log("-----------")
+    console.log("You need to pay: $" + price)
+    console.log("-----------")
+    inquirer
+        .prompt([
+            {
+                type: "confirm",
+                name: "payment",
+                message: "Are you ready to pay?",
+                default: true
+            }
+        ])
+        .then(function(answers){
+            if(answers.payment){
+                console.log("-------")
+                console.log("Thanks for your purchase")
+                console.log("-------")
+                otherItem()
+            }
+            else{
+                console.log("-------")
+                console.log("No problem")
+                console.log("-------")
+                otherItem()
+            }
+        })
+}
+
+function otherItem(){
+    inquirer
+        .prompt([
+            {
+                type: "confirm",
+                name: "buyAgain",
+                message: "Want to buy other item?",
+                default:true
+            }
+        ])
+        .then(function(answers){
+            if(answers.buyAgain){
+                displayProduct()
+            }
+            else{
+                console.log("We hope to see you soon")
+                connection.end();
+            }
+        })
+}
+
