@@ -25,4 +25,7 @@
     * If the user doesn't want to buy
     ![store without](images/nobuy.png)
 
+    all the transacations are changed on the data base of mySQL
+    ![store sql](images/sql.png)
+
 
