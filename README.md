@@ -1,0 +1,1 @@
+# mysql_amazon_like_store
