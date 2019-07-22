@@ -28,4 +28,7 @@
     all the transacations are changed on the data base of mySQL
     ![store sql](images/sql.png)
 
+### Challenge #2: Manager views
 
+*  When the manager access will display the following options
+![Options deliverd](images/manager.png)
