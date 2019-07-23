@@ -47,20 +47,19 @@ function displayOptions() {
                 case "View low inventory":
                     viewLowInventory();
                     break;
-                case "Add to inventory":
-                    console.log("Success!");
+                case "Add to inventory":;
+                    addInventory()
                     break;
                 case "Add new product":
-                    console.log("hello!");
                     break;
                 case "EXIT":
-                    console.log("hello!");
                     connection.end();
                     break;
             }
         })
 }
 
+//Function that shows the products that are currently on the DB
 function viewProductsSell() {
     connection.query("SELECT * FROM products", function (err, res) {
         if (err) throw err;
@@ -73,16 +72,17 @@ function viewProductsSell() {
                 + " || QUANTITIES: " + res[i].stock_quantity
             );
         }
-        displayOptions()
+
     });
 
 }
 
+//Function that will show the inventory that is currently under 5
 function viewLowInventory() {
     connection.query("SELECT * FROM products", function (err, res) {
         if (err) throw err;
         var arrLowInventory = []
-        
+
         //For loop the result to push it into an array of low inventory
         for (var i = 0; i < res.length; i++) {
             if (res[i].stock_quantity <= 5) {
@@ -94,7 +94,7 @@ function viewLowInventory() {
             console.log("----------------------------------------")
             console.log("   YOUR LOW INVENTORY IS    ")
             console.log("----------------------------------------")
-            
+
             for (var i = 0; i < arrLowInventory.length; i++) {
                 console.log("ID:" + arrLowInventory[i].item_id
                     + " || PRODUCT:" + arrLowInventory[i].product_name
@@ -109,6 +109,55 @@ function viewLowInventory() {
             console.log("         YOU HAVE NO LOW INVENTORY           ")
             console.log("----------------------------------------")
         }
-       
+
     });
+}
+
+function addInventory() {
+    console.log("----------------------------------------------------------")
+    console.log("       Follow the current form to add to inventory        ")
+    console.log("----------------------------------------------------------")
+    inquirer
+        .prompt([
+            {
+                name: "name",
+                type: "input",
+                message: "Name of the product: ",
+            },
+            {
+                name: "department",
+                type: "input",
+                message: "Name of department: ",
+            },
+            {
+                name: "price",
+                type: "number",
+                message: "What is the price of the product:  ",
+    
+            },
+            {
+                name: "stock",
+                type: "number",
+                message: "How much stock of the product: ",
+            }
+
+        ])
+        .then(function (answer) {
+            console.log("Inserting a new product...\n");
+            connection.query( "INSERT INTO products SET ?",
+                {
+                    product_name: answer.name,
+                    department_name: answer.department,
+                    price: answer.price,
+                    stock_quantity: answer.stock,
+                },
+                function (err, res) {
+                    if (err) throw err;
+                    console.log(res.affectedRows + " product inserted!\n");
+                }
+            );
+            displayOptions();
+
+        })
+
 }

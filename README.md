@@ -39,4 +39,9 @@
     * If the manager clicks "view low inventory"
     ![store with stock](images/lowinventory.png)
 
+    * If the manager clicks "add item"
+    ![store add stock](images/additem.png)
+
+    and it will be updated on SQL
+    (images/sqlupdated.png)
     
