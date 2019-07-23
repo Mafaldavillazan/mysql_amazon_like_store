@@ -37,6 +37,6 @@
     ![store with stock](images/forsale.png)
 
     * If the manager clicks "view low inventory"
-    ![store with stock](images/forsale.png)
+    ![store with stock](images/lowinventory.png)
 
     
