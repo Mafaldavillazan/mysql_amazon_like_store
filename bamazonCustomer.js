@@ -32,7 +32,7 @@ function displayProduct() {
         for (var i = 0; i < res.length; i++) {
             console.log("-----------------")
             console.log("ID:" + res[i].item_id
-                + " || PRODUCT:" + res[i].product_name
+                + " |22| PRODUCT:" + res[i].product_name
                 + " || PRIZE: $" + res[i].price);
         }
         selectProduct();

@@ -32,3 +32,11 @@
 
 *  When the manager access will display the following options
 ![Options deliverd](images/manager.png)
+
+    * If the manager clicks "views products for sale"
+    ![store with stock](images/forsale.png)
+
+    * If the manager clicks "view low inventory"
+    ![store with stock](images/forsale.png)
+
+    
