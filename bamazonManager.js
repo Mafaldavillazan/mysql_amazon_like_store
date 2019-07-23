@@ -47,10 +47,12 @@ function displayOptions() {
                 case "View low inventory":
                     viewLowInventory();
                     break;
-                case "Add to inventory":;
+                case "Add to inventory": ;
                     addInventory()
+                    viewProductsSell()
                     break;
                 case "Add new product":
+                    addNewProduct()
                     break;
                 case "EXIT":
                     connection.end();
@@ -72,7 +74,6 @@ function viewProductsSell() {
                 + " || QUANTITIES: " + res[i].stock_quantity
             );
         }
-
     });
 
 }
@@ -112,8 +113,54 @@ function viewLowInventory() {
 
     });
 }
-
+//Changing the inventory of a product
 function addInventory() {
+
+    
+    inquirer
+        .prompt([
+            {
+                name: "idProduct",
+                type: "number",
+                message: "Which product you want to change (id)? ",
+
+            },
+            {
+                name: "stockProduct",
+                type: "number",
+                message: "What is the new stock of this product? ",
+
+            }
+        ])
+        .then(function (answer) {
+            connection.query(
+                "UPDATE products SET ? WHERE ?",
+                [
+                    {
+                        stock_quantity: answer.stockProduct
+                    },
+                    {
+                        item_id: answer.idProduct
+                    }
+                ],
+                function (err, res) {
+                    if (err) throw err;
+
+                    console.log("----------------------------------------")
+                    console.log("         Product updated           ")
+                    console.log("----------------------------------------")
+                    displayOptions();
+            
+                }
+
+            );
+
+        })
+}
+
+
+//Adding a new product
+function addNewProduct() {
     console.log("----------------------------------------------------------")
     console.log("       Follow the current form to add to inventory        ")
     console.log("----------------------------------------------------------")
@@ -133,7 +180,7 @@ function addInventory() {
                 name: "price",
                 type: "number",
                 message: "What is the price of the product:  ",
-    
+
             },
             {
                 name: "stock",
@@ -144,7 +191,7 @@ function addInventory() {
         ])
         .then(function (answer) {
             console.log("Inserting a new product...\n");
-            connection.query( "INSERT INTO products SET ?",
+            connection.query("INSERT INTO products SET ?",
                 {
                     product_name: answer.name,
                     department_name: answer.department,

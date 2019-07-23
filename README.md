@@ -39,6 +39,11 @@
     * If the manager clicks "view low inventory"
     ![store with stock](images/lowinventory.png)
 
+    * If the manager clicks "add to inventory"
+    ![store add stock](images/productupdate.png)
+    and it will update
+    ![store add stock](images/showupdate.png)
+
     * If the manager clicks "add item"
     ![store add stock](images/additem.png)
 
